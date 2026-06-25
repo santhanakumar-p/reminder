@@ -28,10 +28,10 @@ class ReminderCommand extends Command
      */
     public function handle()
     {
-        $reminders = Reminder::where('reminder_at', '<=', now())->get();
+        $reminders = Reminder::where('reminder_at', '<=', now('Asia/Kolkata'))->get();
 
         foreach ($reminders as $reminder) {
-            Mail::to('santhanakumar@gmail.com')->send(new ReminderMail($reminder));
+            Mail::to('santhanakumar@gmail.com')->queue(new ReminderMail($reminder));
         }
 
         return "Reminder send successfully!";
